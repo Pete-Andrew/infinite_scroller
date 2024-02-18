@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+html {
+    /* prevents padding from adding extra width or height to the page */
+    box-sizing: border-box;
+}
+
+body { 
+    margin: 0;
+    /* stretches background full height of the screen */
+    min-height: 100vh;
+    background: whitesmoke; 
+    font-family: Bebas Neue, sans-serif;
+    
+}
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+h1 {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 40px;
+    letter-spacing: 5px;
+}
+
+/* Loader, loader will extend over the whole page as the distance from top/bottom/left/right is set to 0 */
+
+.loader {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255, 0.2)
+
+}
+
+/* img is the child of the class loader */
+/* loader transform: translate centers the image within the center of the page. Prevents the image being centered by it's corner */
+.loader img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+/* image container */
+/* margin gives 10px top and bottom and 30% left and right */
+.image-container {
+    margin: 30px 30%;
+}
+
+/* child element of the img container class */
+.image-container img {
+    width: 100%;
+    margin-top: 15px;
+}
