@@ -28,6 +28,13 @@ h1 {
     letter-spacing: 5px;
 }
 
+#navbarTitle {
+    margin: auto;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+
+
 /* Loader, loader will extend over the whole page as the distance from top/bottom/left/right is set to 0 */
 
 .loader {
@@ -60,4 +67,16 @@ h1 {
 .image-container img {
     width: 100%;
     margin-top: 15px;
+}
+
+/* Media QUery for smartphone */
+
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 20px;
+    }
+    
+    .image-container {
+        margin: 10px;
+    }
 }
