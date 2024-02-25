@@ -7,8 +7,15 @@ let photosArray = [];
 
 // template string ---> Template literals are literals delimited with backtick (`) characters, allowing for multi-line strings, string interpolation with embedded expressions, and special constructs called tagged templates.
 const count = 3;
-
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}`;
+
+//  Helper function to set attributes on DOM elements
+
+function setAttributes(element, attributes) {
+    for (const key in attributes) {
+        element.setAttribute(key, attributes[key]);
+    }
+}
 
 // Create Elements for links & photos, add to DOM
 function displayPhotos() {
@@ -16,13 +23,21 @@ function displayPhotos() {
     photosArray.forEach((photo) => {
         // create <a> to link to unsplash
         const item = document.createElement('a');
-        item.setAttribute('href', photo.links.html);
-        item.setAttribute('target', '_blank');
+
+        setAttributes(item, {
+            href: photo.links.html,
+            target: '_blank',
+        });
+
         // create <img> for photo
         const img = document.createElement('img');
-        img.setAttribute('src', photo.urls.regular);
-        img.setAttribute('alt', photo.alt_description);
-        img.setAttribute('Title', photo.alt_description);
+
+        setAttributes(img, {
+            src: photo.urls.regular,
+            alt: photo.alt_description,
+            Title: photo.alt_description,
+        });
+
         // Put <img> inside <a>, then put both inside the imageContainer element
         item.appendChild(img);
         imageContainer.appendChild(item);
@@ -44,6 +59,8 @@ async function getPhotos () {
         console.log(photosArray);
     }
 }
+
+// 
 
 // on load
 getPhotos();
