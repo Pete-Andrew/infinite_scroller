@@ -15,6 +15,11 @@ const localPhotosArray = [
     "https://i.pinimg.com/564x/66/24/f4/6624f4a2ed9b3b49688ecb22fd3ebc8f.jpg",
     "https://i.pinimg.com/564x/40/5b/af/405baf715b6cc197d5b353f20b952bc1.jpg",
     "https://i.pinimg.com/564x/4e/24/20/4e2420041b5b10029a278143f4625a0f.jpg",
-    
+    "https://i.pinimg.com/564x/6b/31/80/6b31802e31445d4cdcc0a0dd40cf8642.jpg",
+    "https://i.pinimg.com/564x/ac/a3/ff/aca3ff45185b700c419b1f613c41e2b9.jpg",
+    "https://i.pinimg.com/564x/c1/16/d2/c116d253503c99a91b6cb580685a42ca.jpg",
+    "https://i.pinimg.com/564x/b7/8c/c8/b78cc8721d265e07059ab8c55883207b.jpg",
+    "https://i.pinimg.com/736x/e5/a2/71/e5a271a3e214bec34ac9d9cb822434c6.jpg",
+    "https://i.pinimg.com/564x/d7/a8/a4/d7a8a4b677e5f3b7f959d7931a90f58f.jpg",
     
 ];

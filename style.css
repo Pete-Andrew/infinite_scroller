@@ -28,6 +28,10 @@ h1 {
     letter-spacing: 5px;
 }
 
+h2 {
+    font-family: Bebas Neue, sans-serif;
+}
+
 #navbarTitle {
     margin: auto;
     font-family: "Bebas Neue", sans-serif;

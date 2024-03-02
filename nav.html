@@ -4,6 +4,14 @@
         <div class="collapse" id="navbarToggleExternalContent">
           <div class="bg-light p-4">
             <h4 class="text-black">Collapsed content</h4>
+            <br>
+            <h2>Images will be pulled from the local images library if no API key is provided</h2>
+
+            <input type="checkbox" id="useLocal" name="useLocalName" onclick="isTicked()" value="n/a">
+            <label for="useLocal">Use Local images</label><br>
+
+            <input type="checkbox" id="useAPI" name="useAPIName" onclick="isTicked()" value="n/a">
+            <label for="useAPI">Use unsplash API images (you will need an unsplash API key for this)</label><br>
             
             <span class="text-muted">Enter Your API key here:    
                 <br><input type="text" id="user_API_KEY_id" name="user_API_KEY_name">
@@ -11,7 +19,7 @@
                 <div>An API key can be obtained from:</div>
             </span>
 <br>
-            <span class="text-muted">Enter Your Search term here:    
+            <span class="text-muted">Enter Your Search term here for the unsplash API:    
               <br><input type="text" id="search" name="search">
 
           </span>

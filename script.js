@@ -10,6 +10,7 @@ let runningTotalImages = 0;
 let photosArray = [];
 //sets a search term for the unsplash API
 let searchTerm = 'nature';
+
 // a boolean that records if the API is being used
 let usingAPI = false; 
 // Unsplash API 
@@ -17,6 +18,9 @@ let usingAPI = false;
 let count = 30;
 
 let localPhotos = 0;
+
+
+
 
 // The Chrome plugin Ghostery will interfere or stop the API call!! 
 //quote this line out if you want to use the local array. 
@@ -82,6 +86,15 @@ function displayPhotos() {
     });
 }
 
+// checks to see if boxes are ticked
+function isTicked () {
+    var checkBoxLocal = document.getElementById("useLocal");
+    var checkBoxAPI = document.getElementById("useAPI");
+    if (checkBoxLocal.checked == true) { 
+        console.log("use local is checked");
+    }
+}
+
 
 // get photos from unsplash API
 async function getPhotos() {
@@ -92,8 +105,8 @@ async function getPhotos() {
         console.log("Photos Array = " + photosArray);
         console.log("The API request has been successful")
         usingAPI = true;
-
-    } catch (error) {
+        }
+    catch (error) {
         // catch error here 
         console.log("There has been an error with the API request!");
         console.log("Local photos will be displayed instead ---> ");
