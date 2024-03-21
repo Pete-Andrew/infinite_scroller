@@ -1,6 +1,12 @@
 const imageContainer = document.getElementById('image-containerID');
 const loader = document.getElementById('loader');
 
+// set a blank initial value for the API
+let enteredAPI = "";
+
+//starts the page with an empty value for the API key
+API_KEY = "";
+
 let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
@@ -19,13 +25,26 @@ let count = 30;
 
 let localPhotos = 0;
 
+// Set the API key by getting the value from the API key input box
+//if the box is blank use local API key
+function APIsubmitBtnClick () {
+    let enteredAPI = document.getElementById("user_API_KEY_id").value     
+    console.log("This is the API that has been input via manually = " + enteredAPI);
+    let API_KEY = enteredAPI; 
+    let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}&query=${searchTerm}`;
+    //runs the get photos function that calls images from the API 
+    getPhotos(apiUrl);
+    //return apiUrl;
+}
 
-
+// if statement that logs if there is no API key value input
+if (API_KEY == "") {
+    console.log("no entered API Key")
+} 
 
 // The Chrome plugin Ghostery will interfere or stop the API call!! 
-//quote this line out if you want to use the local array. 
-// let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}&query=${searchTerm}`;
-
+//quote this line out if you want to use the local array. Old code from the testing phase
+//let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}&query=${searchTerm}`;
 // random photos API call:
 // const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}`;
 
@@ -97,7 +116,7 @@ function isTicked () {
 
 
 // get photos from unsplash API
-async function getPhotos() {
+async function getPhotos(apiUrl) {
     try {
         const response = await fetch(apiUrl);
         photosArray = await response.json();
