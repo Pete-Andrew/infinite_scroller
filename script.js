@@ -1,8 +1,14 @@
+//need to store entered API key in local storage?
+//IF there is an API key in local storage AND use api key box is ticked
+//refresh the page and use API key until 'use Unsplash API' is unticked. 
+
 const imageContainer = document.getElementById('image-containerID');
 const loader = document.getElementById('loader');
 
 // set a blank initial value for the API
 let enteredAPI = "";
+
+let apiUrl = ""; 
 
 //starts the page with an empty value for the API key
 API_KEY = "";
@@ -33,6 +39,7 @@ function APIsubmitBtnClick () {
     let API_KEY = enteredAPI; 
     let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}&query=${searchTerm}`;
     //runs the get photos function that calls images from the API 
+    //usingAPI = true;
     getPhotos(apiUrl);
     //return apiUrl;
 }
