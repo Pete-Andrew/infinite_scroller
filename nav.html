@@ -7,24 +7,26 @@
             <br>
             <h2>Images will be pulled from the local images library if no API key is provided</h2>
 
-            <input type="checkbox" id="useLocal" name="useLocalName" onclick="isTicked()" value="n/a">
+            <input type="radio" name="radioButtonAnswer" id="localRadio" onclick="localRadio()"/>
+            <!-- <input type="checkbox" id="useLocal" name="useLocalName" onclick="isTicked()" value="n/a"> -->
             <label for="useLocal">Use Local images</label><br>
 
-            <input type="checkbox" id="useAPI" name="useAPIName" onclick="isTicked()" value="n/a">
+            <input type="radio" name="radioButtonAnswer" id="APIRadio" onclick="APIRadio()"/>
+            <!-- <input type="checkbox" id="useAPI" name="useAPIName" onclick="isTicked()" value="n/a"> -->
             <label for="useAPI">Use unsplash API images (you will need an unsplash API key for this)</label><br>
             
             <span class="text-muted">Enter Your API key here:    
                 <br><input type="text" id="user_API_KEY_id" name="user_API_KEY_name">
                 <input type="submit" value="Submit" id="summitButtonID" onclick="APIsubmitBtnClick()">
                 <br><br>
-                <div>An API key can be obtained from:</div>
+                <div>An API key can be obtained from: <a href="https://unsplash.com/developers">https://unsplash.com/developers</a></div>
                 
             </span>
 <br>
-            <span class="text-muted">Enter Your Search term here for the unsplash API: <a href="https://unsplash.com/developers">https://unsplash.com/developers</a>    
+            <!-- <span class="text-muted">Enter Your Search term here for the unsplash API
               <br><input type="text" id="search" name="search">
               <input type="submit" value="Submit">
-          </span>
+            </span> -->
 
           </div>
         </div>

@@ -1,139 +1,65 @@
-//need to store entered API key in local storage?
-//IF there is an API key in local storage AND use api key box is ticked
-//refresh the page and use API key until 'use Unsplash API' is unticked. 
-
 const imageContainer = document.getElementById('image-containerID');
 const loader = document.getElementById('loader');
 
-// set a blank initial value for the API
+let localRadioButton = null;
 let enteredAPI = "";
-
-let apiUrl = ""; 
-
-//starts the page with an empty value for the API key
-API_KEY = "";
-
 let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
-// how many images have been loaded in total
 let runningTotalImages = 0;
-//this array is wither populated by the API or by the local array (depending on if the API call is successful) 
 let photosArray = [];
-//sets a search term for the unsplash API
 let searchTerm = 'nature';
-
-// a boolean that records if the API is being used
-let usingAPI = false; 
-// Unsplash API 
-// template string ---> Template literals are literals delimited with backtick (`) characters, allowing for multi-line strings, string interpolation with embedded expressions, and special constructs called tagged templates.
+let usingAPI = false;
 let count = 30;
-
 let localPhotos = 0;
 
-// Set the API key by getting the value from the API key input box
-//if the box is blank use local API key
 function APIsubmitBtnClick () {
-    let enteredAPI = document.getElementById("user_API_KEY_id").value     
-    console.log("This is the API that has been input via manually = " + enteredAPI);
-    let API_KEY = enteredAPI; 
-    let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}&query=${searchTerm}`;
-    //runs the get photos function that calls images from the API 
-    //usingAPI = true;
+    // enteredAPI updates the global variable, previously I was creating a new one which was unnecessary. 
+    enteredAPI = document.getElementById("user_API_KEY_id").value;
+    console.log("API that has been input = " + enteredAPI);
+    let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${enteredAPI}&count=${count}&query=${searchTerm}`;
+    // using API set to true is references in the if statement when the page is scrolled to the bottom
+    usingAPI = true;
     getPhotos(apiUrl);
-    //return apiUrl;
 }
 
-// if statement that logs if there is no API key value input
-if (API_KEY == "") {
-    console.log("no entered API Key")
-} 
-
-// The Chrome plugin Ghostery will interfere or stop the API call!! 
-//quote this line out if you want to use the local array. Old code from the testing phase
-//let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}&query=${searchTerm}`;
-// random photos API call:
-// const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=${count}`;
-
-// Check to see if all images were loaded
-function imageLoaded() {
-
-    imagesLoaded++;
-    console.log(imagesLoaded)
-    if (imagesLoaded === totalImages) {
-        ready = true;
-        loader.hidden = true;
-        count = 30;
-        console.log('ready =', ready)
+function localRadio () {
+    console.log("Local Radio");
+    if (document.getElementById("localRadio").checked) {
+        localRadioButton = true;
+        console.log(localRadioButton);
     }
 }
 
-//  Helper function to set attributes on DOM elements
-function setAttributes(element, attributes) {
-    for (const key in attributes) {
-        element.setAttribute(key, attributes[key]);
+function APIRadio () {
+    console.log("API Radio")
+    if (document.getElementById("APIRadio").checked) {
+        localRadioButton = false;
+        console.log(localRadioButton);
     }
 }
 
-// Create Elements for links & photos, add to DOM
-function displayPhotos() {
-    //re-sets the images loaded function to 0 each time the function is called. 
-    imagesLoaded = 0;
-    // creates a value for all the 
-    runningTotalImages += imagesLoaded;
-    totalImages = photosArray.length;
-    console.log('total images', totalImages);
-    // code that does nothing... 
-    console.log("running total images = ", runningTotalImages);
-    // run function for each object in the photos array
-    photosArray.forEach((photo) => {
-        // create <a> to link to unsplash
-        const item = document.createElement('a');
-
-        setAttributes(item, {
-            href: photo.links.html,
-            target: '_blank',
-        });
-
-        // create <img> for photo
-        const img = document.createElement('img');
-
-        setAttributes(img, {
-            src: photo.urls.regular,
-            alt: photo.alt_description,
-            Title: photo.alt_description,
-        });
-
-        // Event listener, check when each is finished loading
-        img.addEventListener('load', imageLoaded);
-        // Put <img> inside <a>, then put both inside the imageContainer element
-        item.appendChild(img);
-        imageContainer.appendChild(item);
-    });
-}
-
-// checks to see if boxes are ticked
 function isTicked () {
     var checkBoxLocal = document.getElementById("useLocal");
     var checkBoxAPI = document.getElementById("useAPI");
     if (checkBoxLocal.checked == true) { 
         console.log("use local is checked");
+
+    }
+    if (checkBoxAPI.checked == true) {
+        console.log("use API is checked")
     }
 }
 
-
-// get photos from unsplash API
 async function getPhotos(apiUrl) {
     try {
         const response = await fetch(apiUrl);
         photosArray = await response.json();
         displayPhotos();
         console.log("Photos Array = " + photosArray);
-        console.log("The API request has been successful")
+        console.log("The API request has been successful");
         usingAPI = true;
-        }
-    catch (error) {
-        // catch error here 
+    } catch (error) {
         console.log("There has been an error with the API request!");
         console.log("Local photos will be displayed instead ---> ");
         photosArray = localPhotosArray;
@@ -142,52 +68,83 @@ async function getPhotos(apiUrl) {
     }
 }
 
-// Get photos from local array if the API call fails
+function displayPhotos() {
+    imagesLoaded = 0;
+    runningTotalImages += imagesLoaded;
+    totalImages = photosArray.length;
+    console.log('total images', totalImages);
+    console.log("running total images = ", runningTotalImages);
+    photosArray.forEach((photo) => {
+        const item = document.createElement('a');
+        setAttributes(item, {
+            href: photo.links.html,
+            target: '_blank',
+        });
+
+        const img = document.createElement('img');
+        setAttributes(img, {
+            src: photo.urls.regular,
+            alt: photo.alt_description,
+            Title: photo.alt_description,
+        });
+
+        img.addEventListener('load', imageLoaded);
+        item.appendChild(img);
+        imageContainer.appendChild(item);
+    });
+}
 
 function displayLocalPhotos() {
     console.log("The display local photos function has been run");
-    // ready tells the eventlistener if the page is ready to re-run the function. Ready is set to false once the event listener function is run. 
     ready = true;
-    //while i is less than localPhotosArray.Length loop the following part of the function, this creates img elements for all the images in the localPhotosArray
     for (let i = 0; i < localPhotosArray.length; i++) {
-
         const img = document.createElement('img');
         setAttributes(img, {
             src: localPhotosArray[i],
         });
 
-        // Event listener, check when each is finished loading
         img.addEventListener('load', imageLoaded);
 
-        // Create <a> element, this needs to be done separately in this function as using when using the API the <a> is created in the API call function 
         const item = document.createElement('a');
-        // Put <img> inside <a>, then put both inside the imageContainer element
         item.appendChild(img);
         imageContainer.appendChild(item);
     }
     loader.hidden = true;
 }
 
+function setAttributes(element, attributes) {
+    for (const key in attributes) {
+        element.setAttribute(key, attributes[key]);
+    }
+}
 
-// check to see if scrolling when you're near the bottom of the page
+function imageLoaded() {
+    imagesLoaded++;
+    console.log(imagesLoaded);
+    if (imagesLoaded === totalImages) {
+        ready = true;
+        loader.hidden = true;
+        count = 30;
+        console.log('ready =', ready);
+    }
+}
+
 window.addEventListener('scroll', () => {
-    // console.log('scrolled');
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
         ready = false;
-        
         if (usingAPI == true) {
-            getPhotos();
-        } 
-        else {
+            //let apiUrl is declared again here as it pulls it's API key from the global variable and then passes it into the getPhotos function.
+            let apiUrl = `https://api.unsplash.com/photos/random/?client_id=${enteredAPI}&count=${count}&query=${searchTerm}`;
+            getPhotos(apiUrl);
+            console.log("displaying API photos");
+            
+        } else {
             displayLocalPhotos();
-            console.log("display local photos test");
+            console.log("display local photos");
+            
         }
-        console.log(runningTotalImages)
+        console.log(runningTotalImages);
     }
 });
 
-// put in a function that takes the input of the search term box and refreshes the whole page
-
-
-// on load
 getPhotos();
